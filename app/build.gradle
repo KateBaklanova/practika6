@@ -38,8 +38,9 @@ android {
 
 dependencies {
 
-    // nav_version = "2.5.0" //Номер версии может меняться
-    // Feature module Support
+    implementation "android.arch.work:work-runtime:1.0.0-alpha02"
+
+
     implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
     implementation 'androidx.room:room-common:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'

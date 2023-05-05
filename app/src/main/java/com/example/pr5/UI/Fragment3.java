@@ -14,8 +14,13 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.Worker;
 
 import com.example.pr5.R;
+import com.example.pr5.workers.WordWorker;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -58,6 +63,13 @@ public class Fragment3 extends Fragment {
 
         super.onResume();
 
+        OneTimeWorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(WordWorker.class).build();
+        WorkManager.getInstance().enqueue(myWorkRequest);
+
+        OneTimeWorkRequest myWorkRequest1 = new OneTimeWorkRequest.Builder(WordWorker.class)
+                .setInitialDelay(5, TimeUnit.SECONDS)
+                .build();
+
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.submit(new MyRunnable1());
         executorService.submit(new MyRunnable2());
@@ -68,6 +80,7 @@ public class Fragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.fragment5);
+                WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
             }
         });
         Button button = (Button) getView().findViewById(R.id.button31);
@@ -75,6 +88,7 @@ public class Fragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.fragment2);
+                WorkManager.getInstance().cancelWorkById(myWorkRequest.getId());
             }
         });
     }

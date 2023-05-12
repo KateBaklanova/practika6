@@ -1,12 +1,18 @@
 package com.example.pr5.UI;
 
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -25,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Fragment2 extends Fragment{
+    private ImageView AnimAndroid;
     private Fragment2Binding binding;
     private WordsListViewModel wordsListViewModel;
     private WordsAdapter wordsAdapter;
@@ -33,9 +40,15 @@ public class Fragment2 extends Fragment{
         super(R.layout.fragment2);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setContentView(R.layout.fragment2);
+        AnimAndroid = (ImageView) getActivity().findViewById(R.id.my_animated_view);
+        Drawable drawable = AnimAndroid.getDrawable();
+        ((Animatable) drawable).start();
 
         TransitionInflater inflater1 = TransitionInflater.from(requireContext());
         setExitTransition(inflater1.inflateTransition(R.transition.fade

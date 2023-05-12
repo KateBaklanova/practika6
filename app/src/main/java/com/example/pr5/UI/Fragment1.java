@@ -38,8 +38,7 @@ public class Fragment1 extends Fragment {
                 (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
         TransitionInflater inflater1 = TransitionInflater.from(requireContext());
-        setExitTransition(inflater1.inflateTransition(R.transition.fade
-        ));
+        setExitTransition(inflater1.inflateTransition(R.transition.fade));
 
         TransitionInflater inflater2 = TransitionInflater.from(requireContext());
         setEnterTransition(inflater2.inflateTransition(R.transition.slide_right));

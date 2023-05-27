@@ -18,7 +18,7 @@ public interface PlaceholderAPI {
     @GET("/api/unknown")
     Call<MultipleResource> getPosts();
 
-    @GET("/api/users")
+    @POST("/api/users")
     Call<User> createUser(@Body User user);
 
     @GET("/api/users?")

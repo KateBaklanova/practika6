@@ -4,6 +4,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.pr5.Models.MultipleResource;
 import com.example.pr5.Models.User;
 import com.example.pr5.Models.UserList;
@@ -12,6 +14,7 @@ import com.example.pr5.R;
 import com.example.pr5.RetrofitFactory;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +25,7 @@ public class GetDatach {
 
     public final String URL_API = "https://reqres.in";
 
-    public GetDatach() {
+    public GetDatach(FragmentActivity activity) {
         Retrofit retrofit = RetrofitFactory.getRetrofit(URL_API);
         PlaceholderAPI placeholderAPI = retrofit.create(PlaceholderAPI.class);
         Call<MultipleResource> call = placeholderAPI.getPosts();
@@ -45,6 +48,11 @@ public class GetDatach {
                         displayResponse += datum.id + " " + datum.name + " " + datum.pantoneValue + " " + datum.year + "\n";
                     }
 
+                    Log.d("answer", displayResponse);
+
+                    TextView t = activity.findViewById(R.id.t33);
+                    t.setText(displayResponse);
+
                 } else {
                     Log.d("Bad", "Mistake!");
                     return;
@@ -57,6 +65,12 @@ public class GetDatach {
         });
         Log.d("Эй","Привет!");
 
+        try {
+            TimeUnit.MILLISECONDS.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         User user = new User("morpheus", "leader");
         Call<User> call1 = placeholderAPI.createUser(user);
         call1.enqueue(new Callback<User>() {
@@ -65,6 +79,9 @@ public class GetDatach {
                 User user1 = response.body();
                 Log.d("Bad", user1.name + " " + user1.job + " " + user1.id + " " + user1.createdAt);
 
+                TextView t = activity.findViewById(R.id.t33);
+                t.setText(user1.name + " " + user1.job + " " + user1.id + " " + user1.createdAt);
+
             }
 
             @Override
@@ -72,6 +89,12 @@ public class GetDatach {
                 call.cancel();
             }
         });
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Call call2 = placeholderAPI.doCreateUserWithField("Super","Cringe");
         call2.enqueue(new Callback<UserList>() {
@@ -85,9 +108,12 @@ public class GetDatach {
                 Log.d("post!", "did");
 
                 for (UserList.Datum datum : datumList) {
-                    Log.d("Bad", "id : " + datum.id + " name: " + datum.first_name + " " + datum.last_name +
+                    Log.d("answer3", "id : " + datum.id + " name: " + datum.first_name + " " + datum.last_name +
                             " avatar: " + datum.avatar);
                 }
+
+                TextView t = activity.findViewById(R.id.t33);
+                t.setText("post отправлен");
 
             }
 

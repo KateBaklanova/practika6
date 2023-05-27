@@ -61,7 +61,7 @@ public class Fragment5 extends Fragment{
         setExitTransition(inflater1.inflateTransition(R.transition.fade
         ));
 
-        GetDatach api = new GetDatach();
+        GetDatach api = new GetDatach(this.getActivity());
 
         TransitionInflater inflater2 = TransitionInflater.from(requireContext());
         setEnterTransition(inflater2.inflateTransition(R.transition.slide_right));
